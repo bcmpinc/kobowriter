@@ -7,7 +7,7 @@ import (
 
 	"github.com/fogleman/gg"
 	"github.com/olup/kobowriter/matrix"
-	"github.com/shermp/go-fbink-v2/gofbink"
+	"github.com/shermp/go-fbink-v2/v2/gofbink"
 )
 
 type Screen struct {
