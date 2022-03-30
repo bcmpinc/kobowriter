@@ -1,6 +1,8 @@
 package event
 
 import (
+	"strings"
+
 	"github.com/MarinX/keylogger"
 	"github.com/asaskevich/EventBus"
 	"github.com/olup/kobowriter/utils"
@@ -18,7 +20,9 @@ type KeyEvent struct {
 	KeyValue    string
 }
 
-func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus) {
+var keyboardLang string = utils.AZERTY
+
+func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus, lang string) {
 	event := KeyEvent{
 		IsShift:     false,
 		IsShiftLock: false,
@@ -27,11 +31,30 @@ func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus) {
 		IsCtrl:      false,
 	}
 
+	if lang != keyboardLang {
+		keyboardLang = lang
+	}
+
+	var currentLang string = strings.Clone(keyboardLang)
+
+	keyMapMaj := GetKeyMapMaj(currentLang)
+	keyMapAltGr := GetKeyMapAltGr(currentLang)
+	keyMap := GetKeyMap(currentLang)
+
 	events := k.Read()
 	for e := range events {
+		// Check if the keyboard language has been changed
+		if currentLang != keyboardLang {
+			currentLang = strings.Clone(keyboardLang)
+
+			keyMapMaj = GetKeyMapMaj(currentLang)
+			keyMapAltGr = GetKeyMapAltGr(currentLang)
+			keyMap = GetKeyMap(currentLang)
+		}
+
 		if e.Type == keylogger.EvKey {
 
-			keyValue := KeyCode[int(e.Code)]
+			keyValue := keyMap[int(e.Code)]
 			if keyValue == "" {
 				continue
 			}
@@ -74,11 +97,11 @@ func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus) {
 				if utils.IsLetter(keyValue) {
 					event.IsChar = true
 					if event.IsShift || event.IsShiftLock {
-						event.KeyChar = KeyCodeMaj[int(e.Code)]
+						event.KeyChar = keyMapMaj[int(e.Code)]
 					} else if event.IsAltGr {
-						event.KeyChar = KeyCodeAltGr[int(e.Code)]
+						event.KeyChar = keyMapAltGr[int(e.Code)]
 					} else {
-						event.KeyChar = KeyCode[int(e.Code)]
+						event.KeyChar = keyMap[int(e.Code)]
 					}
 				}
 

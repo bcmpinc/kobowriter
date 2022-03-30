@@ -2,7 +2,9 @@
 
 package event
 
-var KeyCode = map[int]string{
+import "github.com/olup/kobowriter/utils"
+
+var AzertyKeyCode = map[int]string{
 	0: "KEY_RESERVED",
 	1: "KEY_ESC",
 
@@ -106,7 +108,7 @@ var KeyCode = map[int]string{
 	194: "KEY_F24",
 }
 
-var KeyCodeMaj = map[int]string{
+var AzertyKeyCodeMaj = map[int]string{
 	2:  "1",
 	3:  "2",
 	4:  "3",
@@ -159,7 +161,7 @@ var KeyCodeMaj = map[int]string{
 	53: "§",
 }
 
-var KeyCodeAltGr = map[int]string{
+var AzertyKeyCodeAltGr = map[int]string{
 	3:  "~",
 	4:  "#",
 	5:  "{",
@@ -208,4 +210,26 @@ var KeyCodeAltGr = map[int]string{
 	50: "´",
 	51: "─",
 	52: "·",
+}
+
+func GetKeyMapMaj(lang string) map[int]string {
+	if lang == utils.QWERTY {
+		return QwertyKeyCodeMaj
+	} else {
+		return AzertyKeyCodeMaj
+	}
+}
+func GetKeyMapAltGr(lang string) map[int]string {
+	if lang == utils.QWERTY {
+		return QwertyKeyCodeAltGr
+	} else {
+		return AzertyKeyCodeAltGr
+	}
+}
+func GetKeyMap(lang string) map[int]string {
+	if lang == utils.QWERTY {
+		return QwertyKeyCode
+	} else {
+		return AzertyKeyCode
+	}
 }

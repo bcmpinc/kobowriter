@@ -39,7 +39,8 @@ func main() {
 	defer close(c)
 
 	bus.SubscribeAsync("REQUIRE_KEYBOARD", func() {
-		findKeyboard(screen, bus)
+		config := utils.LoadConfig(saveLocation)
+		findKeyboard(screen, bus, config.KeyboardLang)
 	}, false)
 
 	bus.SubscribeAsync("QUIT", func() {

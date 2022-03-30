@@ -12,7 +12,7 @@ import (
 	"github.com/olup/kobowriter/screener"
 )
 
-func findKeyboard(screen *screener.Screen, bus EventBus.Bus) {
+func findKeyboard(screen *screener.Screen, bus EventBus.Bus, lang string) {
 	// get key logger
 	keyboard := keylogger.FindKeyboardDevice()
 
@@ -39,7 +39,7 @@ func findKeyboard(screen *screener.Screen, bus EventBus.Bus) {
 	fmt.Println("Found a keyboard at", keyboard)
 
 	k, _ := keylogger.New(keyboard)
-	go event.BindKeyEvent(k, bus)
+	go event.BindKeyEvent(k, bus, lang)
 	bus.Publish("ROUTING", "document")
 	return
 }

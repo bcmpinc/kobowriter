@@ -10,8 +10,14 @@ import (
 	gonanoid "github.com/matoous/go-nanoid/v2"
 )
 
+const (
+	AZERTY = "Azerty"
+	QWERTY = "Qwerty"
+)
+
 type Config struct {
 	LastOpenedDocument string `json:"lastOpenDocument"`
+	KeyboardLang       string `json:"keyboardLang"`
 }
 
 func LoadConfig(saveLocation string) Config {

@@ -189,7 +189,44 @@ func SettingsMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string
 				os.WriteFile(lightPath, []byte(light), os.ModePerm)
 			},
 		},
+		{
+			label: "Keyboard language",
+			action: func() {
+				bus.Publish("ROUTING", "language-menu")
+			},
+		},
 	}
 
 	return createMenu("Open File", options)(screen, bus)
+}
+
+func LanguageMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string) func() {
+	options := []Option{}
+
+	lang_options := []string{
+		utils.AZERTY,
+		utils.QWERTY,
+	}
+
+	config := utils.LoadConfig(saveLocation)
+
+	for _, lang := range lang_options {
+		label := lang
+
+		if lang == config.KeyboardLang {
+			label = lang + " (current)"
+		}
+
+		options = append(options, Option{
+			label: label,
+			action: func() {
+				config.KeyboardLang = lang
+				utils.SaveConfig(config, saveLocation)
+				bus.Publish("ROUTING", "settings-menu")
+				event.keyboardLang = lang
+			},
+		})
+	}
+
+	return createMenu("Select Language", options)(screen, bus)
 }
