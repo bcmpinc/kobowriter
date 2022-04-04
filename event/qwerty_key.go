@@ -4,7 +4,7 @@ package event
 
 var QwertyKeyCode = map[int]string{
 	0: "KEY_RESERVED",
-	1: "ESC",
+	1: "KEY_ESC",
 
 	2:  "1",
 	3:  "2",

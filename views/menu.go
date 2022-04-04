@@ -197,11 +197,18 @@ func SettingsMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string
 		},
 	}
 
-	return createMenu("Open File", options)(screen, bus)
+	return createMenu("Settings", options)(screen, bus)
 }
 
 func LanguageMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string) func() {
-	options := []Option{}
+	options := []Option{
+		{
+			label: "Back",
+			action: func() {
+				bus.Publish("ROUTING", "settings-menu")
+			},
+		},
+	}
 
 	lang_options := []string{
 		utils.AZERTY,
@@ -223,7 +230,7 @@ func LanguageMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string
 				config.KeyboardLang = lang
 				utils.SaveConfig(config, saveLocation)
 				bus.Publish("ROUTING", "settings-menu")
-				event.keyboardLang = lang
+				event.KeyboardLang = lang
 			},
 		})
 	}

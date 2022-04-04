@@ -20,7 +20,7 @@ type KeyEvent struct {
 	KeyValue    string
 }
 
-var keyboardLang string = utils.AZERTY
+var KeyboardLang string = utils.AZERTY
 
 func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus, lang string) {
 	event := KeyEvent{
@@ -31,11 +31,11 @@ func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus, lang string) {
 		IsCtrl:      false,
 	}
 
-	if lang != keyboardLang {
-		keyboardLang = lang
+	if lang != KeyboardLang {
+		KeyboardLang = lang
 	}
 
-	var currentLang string = strings.Clone(keyboardLang)
+	var currentLang string = strings.Clone(KeyboardLang)
 
 	keyMapMaj := GetKeyMapMaj(currentLang)
 	keyMapAltGr := GetKeyMapAltGr(currentLang)
@@ -44,8 +44,8 @@ func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus, lang string) {
 	events := k.Read()
 	for e := range events {
 		// Check if the keyboard language has been changed
-		if currentLang != keyboardLang {
-			currentLang = strings.Clone(keyboardLang)
+		if currentLang != KeyboardLang {
+			currentLang = strings.Clone(KeyboardLang)
 
 			keyMapMaj = GetKeyMapMaj(currentLang)
 			keyMapAltGr = GetKeyMapAltGr(currentLang)

@@ -67,6 +67,8 @@ func main() {
 			unmount = views.FileMenu(screen, bus, saveLocation)
 		case "settings-menu":
 			unmount = views.SettingsMenu(screen, bus, saveLocation)
+		case "language-menu":
+			unmount = views.LanguageMenu(screen, bus, saveLocation)
 		case "qr":
 			unmount = views.Qr(screen, bus, saveLocation)
 

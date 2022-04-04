@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path"
 	"strings"
@@ -34,12 +35,15 @@ func LoadConfig(saveLocation string) Config {
 
 	// we unmarshal our byteArray which contains our
 	// jsonFile's content into 'users' which we defined above
-	json.Unmarshal(content, &config)
+	err = json.Unmarshal(content, &config)
+	if err != nil {
+		fmt.Println("Unmarshal error:", err)
+	}
+
 	return config
 }
 
 func SaveConfig(config Config, saveLocation string) {
-
 	// we unmarshal our byteArray which contains our
 	// jsonFile's content into 'users' which we defined above
 	content, _ := json.Marshal(config)
