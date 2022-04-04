@@ -47,7 +47,16 @@ func SaveConfig(config Config, saveLocation string) {
 	// we unmarshal our byteArray which contains our
 	// jsonFile's content into 'users' which we defined above
 	content, _ := json.Marshal(config)
-	os.WriteFile(path.Join(saveLocation, "config.json"), []byte(content), 777)
+
+	err := os.MkdirAll(saveLocation, 777)
+	if err != nil {
+		fmt.Println("MkdirAll error:", err)
+	}
+
+	err = os.WriteFile(path.Join(saveLocation, "config.json"), []byte(content), 777)
+	if err != nil {
+		fmt.Println("WriteFile error:", err)
+	}
 }
 
 func IsLetter(s string) bool {
