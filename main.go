@@ -30,7 +30,8 @@ func main() {
 	// initialise fbink
 	fmt.Println("Init FBInk ...")
 
-	screen := screener.InitScreen()
+	config := utils.LoadConfig(saveLocation)
+	screen := screener.InitScreen(config.FontScale)
 	defer screen.Clean()
 
 	bus := EventBus.New()
@@ -69,6 +70,8 @@ func main() {
 			unmount = views.SettingsMenu(screen, bus, saveLocation)
 		case "language-menu":
 			unmount = views.LanguageMenu(screen, bus, saveLocation)
+		case "font-menu":
+			unmount = views.FontMenu(screen, bus, saveLocation)
 		case "qr":
 			unmount = views.Qr(screen, bus, saveLocation)
 

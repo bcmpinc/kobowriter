@@ -1,6 +1,7 @@
 package views
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -195,6 +196,12 @@ func SettingsMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string
 				bus.Publish("ROUTING", "language-menu")
 			},
 		},
+		{
+			label: "Font scaling",
+			action: func() {
+				bus.Publish("ROUTING", "font-menu")
+			},
+		},
 	}
 
 	return createMenu("Settings", options)(screen, bus)
@@ -233,6 +240,64 @@ func LanguageMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string
 				event.KeyboardLang = lang
 			},
 		})
+	}
+
+	return createMenu("Select Language", options)(screen, bus)
+}
+
+func FontMenu(screen *screener.Screen, bus EventBus.Bus, saveLocation string) func() {
+	config := utils.LoadConfig(saveLocation)
+	getLabel := func(s uint8) string {
+		var size string
+		switch s {
+		case 1:
+			size = "Small"
+		case 2:
+			size = "Medium"
+		case 3:
+			size = "Large"
+		}
+
+		if config.FontScale == s {
+			return fmt.Sprintf("%s (current)", size)
+		}
+
+		return fmt.Sprintf("%s", size)
+	}
+	options := []Option{
+		{
+			label: "Back",
+			action: func() {
+				bus.Publish("ROUTING", "settings-menu")
+			},
+		},
+		{
+			label: getLabel(1),
+			action: func() {
+				config.FontScale = 1
+				utils.SaveConfig(config, saveLocation)
+				screen.ChangeFontScale(1)
+				bus.Publish("ROUTING", "settings-menu")
+			},
+		},
+		{
+			label: getLabel(2),
+			action: func() {
+				config.FontScale = 2
+				utils.SaveConfig(config, saveLocation)
+				screen.ChangeFontScale(2)
+				bus.Publish("ROUTING", "settings-menu")
+			},
+		},
+		{
+			label: getLabel(3),
+			action: func() {
+				config.FontScale = 3
+				utils.SaveConfig(config, saveLocation)
+				screen.ChangeFontScale(3)
+				bus.Publish("ROUTING", "settings-menu")
+			},
+		},
 	}
 
 	return createMenu("Select Language", options)(screen, bus)

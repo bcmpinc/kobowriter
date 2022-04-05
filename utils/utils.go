@@ -19,6 +19,7 @@ const (
 type Config struct {
 	LastOpenedDocument string `json:"lastOpenDocument"`
 	KeyboardLang       string `json:"keyboardLang"`
+	FontScale          uint8  `json:FontScale`
 }
 
 func LoadConfig(saveLocation string) Config {
@@ -38,6 +39,10 @@ func LoadConfig(saveLocation string) Config {
 	err = json.Unmarshal(content, &config)
 	if err != nil {
 		fmt.Println("Unmarshal error:", err)
+	}
+
+	if config.FontScale == 0 {
+		config.FontScale = 3 // Set default font scaling to Large
 	}
 
 	return config

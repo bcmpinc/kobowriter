@@ -2,6 +2,7 @@ package screener
 
 import (
 	"bytes"
+	"fmt"
 	"image"
 	"math"
 
@@ -24,7 +25,7 @@ type Screen struct {
 var dc = gg.NewContext(25, 40)
 var charCache = map[string][]byte{}
 
-func InitScreen() (s *Screen) {
+func InitScreen(fontScale uint8) (s *Screen) {
 	s = &Screen{}
 	s.fontType = "bitmap"
 
@@ -32,7 +33,7 @@ func InitScreen() (s *Screen) {
 
 	fbinkOpts := gofbink.FBInkConfig{}
 	rOpts := gofbink.RestrictedConfig{
-		Fontmult: 3,
+		Fontmult: fontScale,
 		Fontname: gofbink.Ctrld,
 	}
 	s.fb = gofbink.New(&fbinkOpts, &rOpts)
@@ -63,6 +64,23 @@ func InitScreen() (s *Screen) {
 
 	return
 
+}
+
+func (s *Screen) ChangeFontScale(scale uint8) {
+	if scale > 3 {
+		fmt.Println("Failed to change font scale, out of bounds: ", scale)
+		return
+	}
+
+	_opts := gofbink.FBInkConfig{}
+	opts := gofbink.RestrictedConfig{
+		Fontmult: scale,
+		Fontname: gofbink.Ctrld,
+	}
+
+	s.fb.UpdateRestricted(&_opts, &opts)
+	// s.fb.ReInit(&_opts)
+	s.RefreshFlash()
 }
 
 func (s *Screen) Clean() {
