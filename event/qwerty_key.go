@@ -85,15 +85,15 @@ var QwertyKeyCode = map[int]string{
 
 	100: "KEY_ALT_GR",
 
-	102: "Home",
+	102: "KEY_HOME",
 	103: "KEY_UP",
-	104: "PgUp",
+	104: "KEY_PGUP",
 	105: "KEY_LEFT",
 	106: "KEY_RIGHT",
-	107: "End",
+	107: "KEY_END",
 	108: "KEY_DOWN",
-	109: "PgDn",
-	110: "Insert",
+	109: "KEY_PGDN",
+	110: "KEY_INSERT",
 	111: "KEY_DEL",
 
 	183: "KEY_F13",
