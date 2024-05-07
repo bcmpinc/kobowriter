@@ -19,7 +19,7 @@ const (
 type Config struct {
 	LastOpenedDocument string `json:"lastOpenDocument"`
 	KeyboardLang       string `json:"keyboardLang"`
-	FontScale          uint8  `json:FontScale`
+	FontScale          uint8  `json:"FontScale"`
 }
 
 func LoadConfig(saveLocation string) Config {
@@ -53,12 +53,12 @@ func SaveConfig(config Config, saveLocation string) {
 	// jsonFile's content into 'users' which we defined above
 	content, _ := json.Marshal(config)
 
-	err := os.MkdirAll(saveLocation, 777)
+	err := os.MkdirAll(saveLocation, 0777)
 	if err != nil {
 		fmt.Println("MkdirAll error:", err)
 	}
 
-	err = os.WriteFile(path.Join(saveLocation, "config.json"), []byte(content), 777)
+	err = os.WriteFile(path.Join(saveLocation, "config.json"), []byte(content), 0777)
 	if err != nil {
 		fmt.Println("WriteFile error:", err)
 	}
