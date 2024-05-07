@@ -20,7 +20,7 @@ type KeyEvent struct {
 	KeyValue    string
 }
 
-var KeyboardLang string = utils.AZERTY
+var KeyboardLang string = utils.QWERTY
 
 func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus, lang string) {
 	event := KeyEvent{
