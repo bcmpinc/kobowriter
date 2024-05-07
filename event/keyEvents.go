@@ -110,6 +110,6 @@ func BindKeyEvent(k *keylogger.KeyLogger, b EventBus.Bus, lang string) {
 
 		}
 	}
-	println("lost keyboadr")
+	println("lost keyboard")
 	b.Publish("REQUIRE_KEYBOARD")
 }

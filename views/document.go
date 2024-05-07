@@ -42,8 +42,10 @@ func Document(screen *screener.Screen, bus EventBus.Bus, documentPath string) fu
 			// if is modifier key
 			switch e.KeyValue {
 			case "KEY_BACKSPACE":
-				text.setContent(utils.DeleteAt(text.content, text.cursorIndex))
-				text.setCursorIndex(text.cursorIndex - 1)
+				if text.cursorIndex > 0 {
+					text.setContent(utils.DeleteAt(text.content, text.cursorIndex))
+					text.setCursorIndex(text.cursorIndex - 1)
+				}
 			case "KEY_DEL":
 				if text.cursorIndex < utils.LenString(text.content) {
 					text.setContent(utils.DeleteAt(text.content, text.cursorIndex+1))
