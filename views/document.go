@@ -29,10 +29,11 @@ func Document(screen *screener.Screen, bus EventBus.Bus, documentPath string) fu
 	text.setCursorIndex(utils.LenString(string(docContent)))
 
 	onEvent := func(e event.KeyEvent) {
-		linesToMove := 1
-		if e.IsCtrl {
-			linesToMove = text.height
-		}
+		// linesToMove := 1
+		// if e.IsCtrl {
+		// 	linesToMove = text.height
+		// }
+		pos := text.cursorPos
 
 		// if date combo
 		if e.IsChar {
@@ -61,15 +62,23 @@ func Document(screen *screener.Screen, bus EventBus.Bus, documentPath string) fu
 			case "KEY_LEFT":
 				text.setCursorIndex(text.cursorIndex - 1)
 			case "KEY_DOWN":
-				text.setCursorPos(Position{
-					x: text.cursorPos.x,
-					y: text.cursorPos.y + linesToMove,
-				})
+				pos.y++
+				text.setCursorPos(pos)
 			case "KEY_UP":
-				text.setCursorPos(Position{
-					x: text.cursorPos.x,
-					y: text.cursorPos.y - linesToMove,
-				})
+				pos.y--
+				text.setCursorPos(pos)
+			case "KEY_PGUP":
+				pos.y -= text.height
+				text.setCursorPos(pos)
+			case "KEY_PGDN":
+				pos.y += text.height
+				text.setCursorPos(pos)
+			case "KEY_HOME":
+				pos.x = 0
+				text.setCursorPos(pos)
+			case "KEY_END":
+				pos.x = text.lineCount[pos.y] - 1
+				text.setCursorPos(pos)
 			case "KEY_ESC":
 				bus.Publish("ROUTING", "menu")
 			case "KEY_F1":
