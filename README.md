@@ -10,9 +10,9 @@ For years I thought that e-ink was the ultimate medium to write in broad dayligh
 
 This project brings the same form factor in a considerably cheaper way (especially if like me you already have a KOBO at hand).
 
-> Note that the installed software should let you use switch between your normal kobo stock software and the KoboWriter one; so your kobo is still usable in its default way.
+> Note that the installed software should let you switch between your normal kobo stock software and the KoboWriter one; so your kobo is still usable in its default way.
 
-> Because XCSoar USB OTG should work for many KOBO devices (touch, Mini, Glo HD and pretty much all the later ones), this project would work there too. But as of now this program has only been built and tested for the KOBO GLO HD and only supports the AZERTY (French) keyboard. You can open issues if you need to support other devices / keyboards
+> Because XCSoar USB OTG should work for many KOBO devices (touch, Mini, Glo HD and pretty much all the later ones), this project would work there too. But as of now this program has only been built and tested for the KOBO GLO HD and supports QWERTY and AZERTY (French) keyboards.
 
 ## How it looks
 
@@ -45,7 +45,9 @@ Files are saved automatically inside a hidden folder `.adds/kobowriter/`. The co
 
 You can build the software, put it on a KOBO with XCSoar software, and launch it any way you see fit.
 
-> You do this at your own risk!
+> You do this at your own risk! 
+
+If you do happen to brick your device, there's supposed to be a micro-SD card hidden inside the casing that contains two partitions, one for the firmware and one for your books (you only get to see this one while it's connected to your pc). This at least provides you an opportunity to revive your device, but you'll have to find instructions for this elsewhere.
 
 ### Installing the XCSoar launcher
 
