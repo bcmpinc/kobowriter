@@ -57,6 +57,16 @@ If you do happen to brick your device, there's supposed to be a micro-SD card hi
   
 From now on your Kobo will start up on XCSoar launcher. This build comes with an old prebuild version of kobowriter that uses an AZERTY keybaord layout. You can use this build to check if Kobowriter will work for you at all, as not all keyboards will function. Note that you need USB-OTG to be enabled to detect any keyboard at all.
 
+### Installing a new version of XCSoar
+
+The version of XCSoar that we just installed has a few issues, such as the reboot button not working and it not automatically rebooting when changing the OTG setting. So to update to the latest build:
+
+- Download [XCSoar installer](https://www.xcsoar.org/download/) for kobo.
+- Start the stock Kobo software by pressing the *Nickel* button.
+- Connect your Kobo and place the `KoboRoot.tar.gz` archive in the .kobo (hidden) directory. Make sure it wasn't renamed.
+
+In XCSoar's system menu, there is an *Export USB storage* button that allows you to transfer files without having to start the Kobo stock software. Note that when copying `KoboRoot.tar.gz` packages, you need to restart the e-reader to have those installed.
+
 ### Installing a new build of kobowriter
 
 - Start the stock Kobo software by pressing the *Nickel* button.
@@ -74,6 +84,15 @@ From now on your Kobo will start up on XCSoar launcher. This build comes with an
 - Menu is accessed with the *escape* button. You can change the keyboard layout to QWERTY here, create a new document, open an old one, or close the software.
 
 > Note that while USB-OTG is enabled, you won't be able to start the stock Kobo software. But you need to have it on in order to use the KoboWriter software. Changing the USB-OTG setting requires a restart. If you want to use your Kobo again as an e-reader, you have to *Disable USB-OTG*, turn the device off and on again and then press the *Nickel* button.
+
+### Installing fbdepth
+
+KoboWriter needs a small program called `fbdepth` to rotate the screen. Otherwise it will run in portrait mode. 
+
+- Download the [FBInk](https://www.mobileread.com/forums/showthread.php?t=299110) build in the first post.
+- Connect your Kobo again.
+- Extract the `KoboRoot.tar.gz` in the zip file to the .kobo (hidden) directory.
+- Eject safely & restart
 
 ### Starting Kobo e-reader software
 - Turn on your Kobo

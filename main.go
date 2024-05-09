@@ -25,7 +25,7 @@ func main() {
 
 	// rotate screen
 	fmt.Println("Rotate screen ...")
-	exec.Command(`fbdepth`, `--rota`, `2`).Run()
+	exec.Command(`/usr/local/fbink/bin/fbdepth`, `--rota`, `2`).Run()
 
 	// initialise fbink
 	fmt.Println("Init FBInk ...")
